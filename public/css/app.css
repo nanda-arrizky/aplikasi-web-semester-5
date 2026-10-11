@@ -1,0 +1,645 @@
+/* ==========================================================================
+   Kampus Lost & Found — Design Tokens
+   Pertemuan 4 • Praktik Aplikasi Web (INF60295)
+   Purbaya Dwipananda Arrizky (24051130060)
+
+   Seluruh nilai visual aplikasi didefinisikan di blok :root ini.
+   Tidak ada nilai warna, jarak, atau radius yang ditulis langsung
+   di luar blok ini — semua merujuk var(--nama-token).
+   ========================================================================== */
+
+:root {
+  /* --- Warna merek --- */
+  --color-primary:        #2563EB;  /* tombol utama, tautan penting */
+  --color-primary-hover:  #1D4FD7;
+  --color-primary-soft:   #DBEAFE;  /* latar chip dan panel aksen */
+  --color-primary-border: #7AAEEA;
+  --color-primary-text:   #14427A;  /* teks di atas latar lembut */
+  --color-on-primary:     #FFFFFF;  /* teks di atas tombol utama */
+
+  /* --- Warna netral --- */
+  --color-text:           #2B2B28;  /* judul dan isi */
+  --color-text-muted:     #6E6C66;  /* label, keterangan, teks bantuan */
+  --color-border:         #DAD8D0;
+  --color-border-strong:  #B9B7AD;
+  --color-surface:        #FFFFFF;  /* latar kartu dan panel */
+  --color-background:     #F7F6F2;  /* latar halaman */
+
+  /* --- Warna status --- */
+  --color-success:        #166534;
+  --color-success-soft:   #DCFCE7;
+  --color-success-border: #86C79B;
+
+  --color-warning:        #92400E;
+  --color-warning-soft:   #FEF3C7;
+  --color-warning-border: #E0B860;
+
+  --color-danger:         #B3261E;
+  --color-danger-soft:    #FCE9E6;
+  --color-danger-border:  #D4A99E;
+
+  /* --- Tipografi --- */
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  --text-display: 2rem;      /* 32px — judul beranda */
+  --text-title:   1.625rem;  /* 26px — judul halaman */
+  --text-section: 1.125rem;  /* 18px — judul bagian */
+  --text-body:    0.9375rem; /* 15px — isi */
+  --text-label:   0.8125rem; /* 13px — label field, keterangan */
+  --text-caption: 0.75rem;   /* 12px — chip, teks bantuan */
+
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-bold:    700;
+
+  --leading-tight: 1.25;
+  --leading-base:  1.6;
+
+  /* --- Jarak (kelipatan 4) --- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-12: 48px;
+
+  /* --- Radius --- */
+  --radius-sm:   6px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-pill: 999px;
+
+  /* --- Garis dan bayangan --- */
+  --border-width: 1px;
+  --shadow-card:  0 1px 2px rgba(43, 43, 40, 0.04);
+  --focus-ring:   0 0 0 3px rgba(37, 99, 235, 0.28);
+
+  /* --- Layout --- */
+  --container-max: 1200px;
+  --tap-target:    44px;  /* ukuran minimum target sentuh */
+}
+
+/* ==========================================================================
+   Reset ringkas
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--leading-base);
+  color: var(--color-text);
+  background: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, p, figure { margin: 0; }
+img { max-width: 100%; display: block; }
+a { color: var(--color-primary-text); }
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--radius-sm);
+}
+
+/* ==========================================================================
+   Layout
+   ========================================================================== */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.site-header {
+  background: var(--color-surface);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  min-height: 68px;
+}
+
+.site-header__brand {
+  font-size: 1.0625rem;
+  font-weight: var(--weight-bold);
+  color: var(--color-primary-text);
+  text-decoration: none;
+}
+
+.site-nav { display: flex; gap: var(--space-6); }
+
+.site-nav a {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  padding: var(--space-2) 0;
+  border-bottom: 2px solid transparent;
+}
+
+.site-nav a:hover { color: var(--color-text); }
+
+.site-nav a[aria-current="page"] {
+  color: var(--color-primary-text);
+  font-weight: var(--weight-medium);
+  border-bottom-color: var(--color-primary);
+}
+
+.page { padding: var(--space-8) 0 var(--space-12); }
+
+.page__title {
+  font-size: var(--text-title);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+}
+
+.page__subtitle {
+  margin-top: var(--space-1);
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.site-footer {
+  border-top: var(--border-width) solid var(--color-border);
+  padding: var(--space-6) 0;
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+}
+
+.backlink {
+  display: inline-block;
+  margin-bottom: var(--space-3);
+  font-size: var(--text-label);
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.backlink:hover { color: var(--color-text); }
+
+/* --- Grid dua kolom: panel samping + isi --- */
+.layout-split {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.layout-main-aside {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-4);
+}
+
+.grid-two {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.stack      { display: grid; gap: var(--space-4); }
+.stack-sm   { display: grid; gap: var(--space-2); }
+.row        { display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: center; }
+
+/* Anak grid tidak boleh memaksa kolomnya melebar melampaui ruang yang tersedia.
+   Tanpa ini, satu elemen berlebar-minimum besar — misalnya dua kolom tanggal
+   berdampingan — akan melebarkan seluruh kolom dan membuat isinya meluber. */
+.layout-split > *,
+.layout-main-aside > *,
+.grid-cards > *,
+.grid-two > *,
+.stack > *,
+.stack-sm > * {
+  min-width: 0;
+}
+
+/* ==========================================================================
+   Komponen — Card
+   ========================================================================== */
+
+.card {
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-card);
+}
+
+.card--flat   { box-shadow: none; background: var(--color-background); }
+.card--accent { background: var(--color-primary-soft); border-color: var(--color-primary-border); }
+
+.card__title {
+  font-size: 1rem;
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-tight);
+}
+
+.card__meta {
+  font-size: var(--text-label);
+  color: var(--color-text-muted);
+}
+
+/* Kartu barang pada hasil pencarian */
+.item-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-6);
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--shadow-card);
+}
+
+.item-card:hover {
+  border-color: var(--color-border-strong);
+}
+
+.item-card:focus-visible {
+  box-shadow: var(--focus-ring);
+}
+
+.item-card--unavailable {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.item-card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+/* ==========================================================================
+   Komponen — Button
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--tap-target);
+  padding: 0 var(--space-6);
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: var(--weight-medium);
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.btn--primary:hover { background: var(--color-primary-hover); }
+
+.btn--secondary {
+  background: var(--color-surface);
+  border-color: var(--color-border-strong);
+  color: var(--color-text);
+}
+
+.btn--secondary:hover { border-color: var(--color-text-muted); }
+
+.btn--danger {
+  background: var(--color-danger-soft);
+  border-color: var(--color-danger-border);
+  color: var(--color-danger);
+}
+
+.btn--danger:hover { border-color: var(--color-danger); }
+
+.btn--ghost {
+  background: transparent;
+  color: var(--color-text-muted);
+  padding: 0 var(--space-3);
+}
+
+.btn--ghost:hover { color: var(--color-text); }
+
+.btn--block { width: 100%; }
+.btn--small { min-height: 36px; padding: 0 var(--space-4); font-size: var(--text-label); }
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Komponen — Form field
+   ========================================================================== */
+
+.field { display: grid; gap: var(--space-1); }
+
+.field__label {
+  font-size: var(--text-label);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+}
+
+.field__optional {
+  font-weight: var(--weight-regular);
+  color: var(--color-text-muted);
+}
+
+.field__control {
+  width: 100%;
+  /* Kolom tanggal dan select bawaan browser punya lebar minimum sendiri.
+     min-width: 0 membuatnya ikut menyusut mengikuti wadahnya. */
+  min-width: 0;
+  min-height: var(--tap-target);
+  padding: var(--space-2) var(--space-3);
+  font-family: inherit;
+  font-size: var(--text-body);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+textarea.field__control {
+  min-height: 140px;
+  padding: var(--space-3);
+  line-height: var(--leading-base);
+  resize: vertical;
+}
+
+.field__control::placeholder { color: var(--color-text-muted); }
+
+.field__control:focus-visible {
+  border-color: var(--color-primary);
+  box-shadow: var(--focus-ring);
+}
+
+.field__hint {
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+}
+
+.field--error .field__control { border-color: var(--color-danger-border); }
+
+.field__error {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  color: var(--color-danger);
+}
+
+/* ==========================================================================
+   Komponen — Status badge
+   Warna bukan satu-satunya pembeda: setiap badge selalu memuat teks.
+   ========================================================================== */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-background);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.badge--pending  { background: var(--color-background);     border-color: var(--color-border);          color: var(--color-text-muted); }
+.badge--approved { background: var(--color-success-soft);   border-color: var(--color-success-border);  color: var(--color-success); }
+.badge--rejected { background: var(--color-danger-soft);    border-color: var(--color-danger-border);   color: var(--color-danger); }
+.badge--review   { background: var(--color-warning-soft);   border-color: var(--color-warning-border);  color: var(--color-warning); }
+.badge--route    { background: var(--color-primary-soft);   border-color: var(--color-primary-border);  color: var(--color-primary-text); }
+
+/* ==========================================================================
+   Komponen — Alert
+   ========================================================================== */
+
+.alert {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-4) var(--space-6);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+}
+
+.alert__title { font-weight: var(--weight-bold); }
+
+.alert--success { background: var(--color-success-soft); border-color: var(--color-success-border); color: var(--color-success); }
+.alert--danger  { background: var(--color-danger-soft);  border-color: var(--color-danger-border);  color: var(--color-danger); }
+.alert--info    { background: var(--color-primary-soft); border-color: var(--color-primary-border); color: var(--color-primary-text); }
+
+/* ==========================================================================
+   Komponen — Tabel
+   ========================================================================== */
+
+.table-wrap {
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+}
+
+.table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+
+.table th {
+  text-align: left;
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-label);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+  background: var(--color-background);
+  border-bottom: var(--border-width) solid var(--color-border);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: var(--space-4) var(--space-6);
+  border-bottom: var(--border-width) solid var(--color-border);
+  vertical-align: middle;
+}
+
+.table tr:last-child td { border-bottom: none; }
+
+/* ==========================================================================
+   Komponen — Definition list (detail barang)
+   ========================================================================== */
+
+.detail-list { display: grid; gap: 0; }
+
+.detail-list__row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: var(--space-4);
+  padding: var(--space-3) 0;
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.detail-list__row:last-child { border-bottom: none; }
+.detail-list__key   { font-size: var(--text-label); color: var(--color-text-muted); }
+.detail-list__value { font-weight: var(--weight-medium); }
+
+/* ==========================================================================
+   State kosong
+   ========================================================================== */
+
+.empty-state {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: center;
+  text-align: center;
+  padding: var(--space-12) var(--space-6);
+  background: var(--color-background);
+  border: var(--border-width) dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+}
+
+.empty-state__title { font-size: var(--text-section); font-weight: var(--weight-bold); }
+.empty-state__text  { font-size: 0.875rem; color: var(--color-text-muted); max-width: 46ch; }
+
+/* ==========================================================================
+   Beranda — dua pintu layanan
+   ========================================================================== */
+
+.hero { padding: var(--space-8) 0 var(--space-6); }
+
+.hero__title {
+  font-size: var(--text-display);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+  max-width: 20ch;
+}
+
+.hero__text {
+  margin-top: var(--space-3);
+  color: var(--color-text-muted);
+  max-width: 60ch;
+}
+
+.door {
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border: var(--border-width) dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+}
+
+.door__title { font-size: 1.25rem; font-weight: var(--weight-bold); }
+.door__text  { font-size: 0.875rem; color: var(--color-text-muted); }
+
+.search-bar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-3);
+}
+
+.section-rule {
+  margin: var(--space-8) 0 var(--space-6);
+  border: none;
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+/* ==========================================================================
+   Responsif — satu kolom di bawah 820px
+   ========================================================================== */
+
+@media (max-width: 820px) {
+  .container { padding: 0 var(--space-4); }
+
+  .layout-split,
+  .layout-main-aside,
+  .grid-cards,
+  .grid-two {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__title  { font-size: 1.5rem; }
+  .page__title  { font-size: 1.25rem; }
+
+  .search-bar { grid-template-columns: 1fr; }
+
+  .detail-list__row {
+    grid-template-columns: 1fr;
+    gap: var(--space-1);
+  }
+
+  /* Padding horizontal tetap mengikuti .container; hanya padding vertikal
+     yang disesuaikan. Menulis 0 di sini akan membuat isi header menempel
+     ke tepi layar sementara isi halaman tetap bertepi. */
+  .site-header__inner {
+    flex-wrap: wrap;
+    padding: var(--space-3) var(--space-4);
+    gap: 0;
+    min-height: 0;
+  }
+
+  .site-header__brand {
+    display: block;
+    width: 100%;
+    padding: var(--space-2) 0;
+  }
+
+  /* Menu dipisahkan dari nama aplikasi dengan garis tipis, dan dibuat
+     dapat digeser bila nanti bertambah panjang. */
+  .site-nav {
+    width: 100%;
+    gap: var(--space-5, 20px);
+    padding-top: var(--space-1);
+    border-top: var(--border-width) solid var(--color-border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .site-nav::-webkit-scrollbar { display: none; }
+
+  /* Target sentuh dinaikkan ke ambang 44px sesuai token --tap-target */
+  .site-nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-target);
+    padding: 0;
+    white-space: nowrap;
+  }
+
+  /* Tombol utama melebar penuh agar mudah dijangkau ibu jari */
+  .btn--primary { width: 100%; }
+  .row .btn     { width: 100%; }
+
+  .card { padding: var(--space-4); }
+  .table th, .table td { padding: var(--space-3) var(--space-4); }
+}
+
+/* Panel aksi pada halaman detail dipindah ke bawah pada layar sempit */
+@media (max-width: 820px) {
+  .layout-main-aside > .action-panel { order: 2; }
+}
